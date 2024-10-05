@@ -37,8 +37,8 @@
 
     <title>Peddy</title>
   </head>
-  <body class="box-border lg:px-[9%] md:px-[5%] px-[3%]">
-    <header>
+  <body class="box-border">
+    <header class="lg:px-[9%] md:px-[5%] px-[3%]">
       <nav class="flex justify-between items-center font-lato md:my-6 my-4">
         <div class="flex gap-3 md:order-0 order-1 items-center">
           <img src="images/logo.webp" alt="logo" class="w-6 h-5" />
@@ -158,23 +158,66 @@
         <p class="font-bold md:text-2xl text-lg text-custom-gray mb-5">
           Bringing Families Together 🔥
         </p>
-        <h1 class="font-extrabold md:text-[4rem] text-[3rem] lg:leading-[5rem] leading-[4rem] lg:mb-8 mb-6">
+        <h1
+          class="font-extrabold md:text-[4rem] text-[3rem] lg:leading-[5rem] leading-[4rem] lg:mb-8 mb-6"
+        >
           Your Path to Adoption Starts Here
         </h1>
         <p class="text-custom-gray mb-8">
           Our shelter is home to countless adorable dogs and cats eagerly
           waiting for their forever homes. Whether you're searching for a
-          puppy,a kitten, or a loyal companion, we have the
-          perfect pet waiting for you.
+          puppy,a kitten, or a loyal companion, we have the perfect pet waiting
+          for you.
         </p>
-        <a href="#main"><button class="bg-primary rounded-md px-8 py-4 text-lg font-bold text-white transition duration-300 hover:-translate-y-1">View more</button></a>
-        <img src="images/pet.webp" alt="hero-img" class="mt-10"/>
+        <a href="#main"
+          ><button
+            class="bg-primary rounded-md px-8 py-4 text-lg font-bold text-white transition duration-300 hover:-translate-y-1"
+          >
+            View more
+          </button></a
+        >
+        <img src="images/pet.webp" alt="hero-img" class="mt-10" />
       </div>
     </header>
 
-    <main id="main"></main>
+    <main id="main" class="lg:px-[9%] md:px-[5%] px-[3%]"></main>
 
-    <footer id="contact"></footer>
+    <footer
+      id="contact"
+      class="bg-black lg:py-[5rem] py-[1.5rem] lg:px-[9%] md:px-[5%] px-[10%] text-white
+      flex md:flex-row flex-col justify-between"
+    >
+      <div>
+        <div class="flex gap-3 items-center md:mb-6 mb-4 md:justify-start justify-center mx-auto">
+            <img src="images/logo.webp" alt="logo" class="w-6 h-5" />
+            <span class="font-extrabold text-2xl ">Peddy</span>
+        </div>
+        <div class="md:leading-8 leading-7 md:text-base text-sm text-gray-300 cursor-pointer text-center md:text-left mb-6">
+            Location: av. Washington 165, <br>NY CA 54003 <br>Phone: +31 85 964 47 25 <br>Email:
+            info@yourdomain.com <br>Openings hours: 9.00 AM - 5.00 PM
+        </div>
+      </div>
+
+      <div class="md:text-left text-center mb-5">
+        <h3 class="font-semibold text-lg md:mb-6 mb-3">Useful Links</h3>
+        <ul class="text-gray-400 text-sm">
+            <li class="md:mb-2 mb-1"><a href="#">Home</a></li>
+            <li class="md:mb-2 mb-1"><a href="#">About us</a></li>
+            <li class="md:mb-2 mb-1"><a href="#">Animals</a></li>
+            <li class="md:mb-2 mb-1"><a href="#">Foundation</a></li>
+            <li class="md:mb-2 mb-1"><a href="#">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class=" md:text-left text-center">
+        <h3 class="font-semibold text-lg md:mb-6 mb-6">Drop a Message</h3>
+        <form class="flex flex-col gap-4">
+            <input type="text" placeholder="Enter your Email" class="md:p-4 p-3 bg-gray-950 rounded-md">
+            <input type="submit" value="Subscribe"
+            class="bg-primary rounded-md px-8 md:py-4 py-3 text-lg font-bold text-white transition duration-300 hover:-translate-y-1">
+        </form>
+      </div>
+    </footer>
 
     <script src="Scripts/script.js"></script>
   </body>
