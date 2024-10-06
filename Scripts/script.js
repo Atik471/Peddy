@@ -21,6 +21,7 @@ const petURL = `https://openapi.programming-hero.com/api/peddy/pet/` // single p
 
 /*------- fetch categories -------*/
 let categoryList = []
+let catDictionary = {}
 
 const fetchCategories = async () => {
 
@@ -49,6 +50,8 @@ async function displayCategories(){
         `
         newCat.classList.add('md:px-12', 'md:py-4', 'p-3', 'flex', 'md:gap-4', 'gap-2', 'justify-center', 'items-center',  'cursor-pointer', 'transition', 'duration-300', 'inactive')
         newCat.setAttribute('id', `cat-${cat.id}`)
+
+        catDictionary[`cat-${cat.id}`] = `${cat.category}` 
     
         categoryParent.appendChild(newCat)
 
@@ -61,16 +64,97 @@ async function displayCategories(){
 displayCategories()
 
 /*------- active category -------*/
-const activeCat = (event, newCat) => {
+const activeCat = async (event, newCat) => {
     // console.log(newCat.id)
 
     for(let i = 0; i < categoryList.length; i++){
         document.getElementById(`cat-${i+1}`).classList.remove('active')
         document.getElementById(`cat-${i+1}`).classList.add('inactive')
-        console.log(document.getElementById(`cat-${i+1}`))
     }
     
     newCat.classList.remove('inactive')
     newCat.classList.add('active')
+    
+    await fetchPet(catDictionary[`${newCat.id}`])
+    displayPets(true)
 }
   
+
+/*------- fetch all pets -------*/
+let petList = []
+
+const fetchPets = async () => {
+    try {
+      const response = await fetch(petsURL)
+      const data = await response.json();
+      petList = data.pets
+    //   console.log(petList)
+    } catch (error) {
+      console.error('There was some issue while loading categories:', error)
+    }
+}
+
+/*------- fetch pet by category -------*/
+const fetchPet = async (catName) => {
+    try {
+      const response = await fetch(`${categoryURL}${catName}`)
+      const petsOnCat = await response.json();
+      petList = petsOnCat.data
+    } catch (error) {
+      console.error('There was some issue while loading categories:', error)
+    }
+}
+  
+async function displayPets(categorized){
+    if(!categorized) await fetchPets()
+    
+    const petParent = document.getElementById('pets')
+    petParent.innerHTML = ''
+
+    petList.forEach(pet => {
+        const newPet = document.createElement('div')
+        newPet.innerHTML = 
+        `
+            <div class='md:mb-5 mb-3'>
+                <img src='${pet.image}' alt='pet-img' class='rounded-md'>
+            </div>
+            <div class='font-lato pb-4 border-b-2 border-slate-200'>
+                <h3 class='name font-inter text-lg font-semibold md:mb-3 mb-2'>${pet.pet_name}</h3>
+                <div class='flex gap-2 items-center mb-2'>
+                    <img src='images/breed.png' alt='breed-png' class='w-5 '>
+                    <p class='breed text-base text-custom-gray'>${pet.breed}</p>
+                </div>
+                <div class='flex gap-2 items-center mb-2'>
+                    <img src='images/dob.png' alt='dob-png' class='w-5 '>
+                    <p class='dob text-base text-custom-gray'>${pet.date_of_birth}</p>
+                </div>
+                <div class='flex gap-2 items-center mb-2'>
+                    <img src='images/gender.png' alt='gender-png' class='w-5 '>
+                    <p class='gender text-base text-custom-gray'>${pet.gender}</p>
+                </div>
+                <div class='flex gap-2 items-center mb-2'>
+                    <img src='images/price.png' alt='price-png' class='w-5 '>
+                    <p class='price text-base text-custom-gray'>${pet.price}</p>
+                </div>
+            </div>
+            <div class='pt-4 flex items-stretch justify-between'>
+                <button class='border-2 border-slate-200 hover:border-slate-300 transition duration-300 rounded-lg py-1 px-4'>
+                    <img src='images/like.png' alt='like-img' class='w-4'>
+                </button>
+                <button class='border-2 border-slate-200 hover:border-slate-300 transition duration-300 rounded-lg py-1 px-3 font-semibold text-primary font-lato'>
+                    Adopt
+                </button>
+                <button class='border-2 border-slate-200 hover:border-slate-300 transition duration-300 rounded-lg py-1 px-3 font-semibold text-primary font-lato'>
+                    Details
+                </button>
+            </div>
+        `
+        newPet.classList.add('p-4', 'border-2', 'border-slate-200', 'rounded-lg')
+        newPet.setAttribute('id', `pet-${pet.petId}`)
+    
+        petParent.appendChild(newPet)
+
+    })
+}
+
+displayPets(false)
