@@ -1,0 +1,19 @@
+.active{
+    border-color: rgb(14, 122, 129);
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 3.3rem;
+    background-color: rgba(14, 122, 129, 0.1);;
+}
+
+.inactive{
+    /* 'border-2', 'border-slate-200','rounded-lg', 'hover:border-slate-300', */
+    border-width: 2px; 
+    border-color: #e2e8f0;
+    border-style: solid;
+    border-radius: 0.5rem;
+    background-color: white;
+}
+.inactive:hover{
+    border-color: #cbd5e1;
+}

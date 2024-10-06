@@ -35,6 +35,9 @@
       }
     </style>
 
+    <!-- css -->
+    <link rel="stylesheet" href="styles/style.css">
+
     <title>Peddy</title>
   </head>
   <body class="box-border">
@@ -80,8 +83,9 @@
             </li>
           </ul>
         </div>
-        <div class="md:w-10 md:h-10 w-8 h-8 order-2 cursor-pointer">
+        <div class="md:w-10 md:h-10 w-8 h-8 order-2 cursor-pointer rounded-full border-2 border-white hover:border-primary transition duration-300">
           <svg
+          
             viewBox="0 0 56 56"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -180,7 +184,16 @@
       </div>
     </header>
 
-    <main id="main" class="lg:px-[9%] md:px-[5%] px-[3%]"></main>
+    <main id="main" class="lg:px-[9%] md:px-[5%] px-[3%]">
+        <div class="text-center md:my-8 my-6 md:max-w-[60%] mx-auto font-lato">
+            <h2 class="md:text-[2.5rem] text-[2rem] md:leading-[3rem] leading-[2.5rem] font-extrabold mb-4">Adopt Your Best Friend</h2>
+            <p class="text-custom-gray">Looking for a furry friend to fill your days with love and laughter? Explore our adoptable animals and discover the joy of giving a loving home.</p>
+        </div>
+        <div id="catagories" class="flex flex-wrap md:gap-8 gap-3 md:justify-center md:mb-8 mb-5">
+
+        </div>
+        <div></div>
+    </main>
 
     <footer
       id="contact"
@@ -192,9 +205,15 @@
             <img src="images/logo.webp" alt="logo" class="w-6 h-5" />
             <span class="font-extrabold text-2xl ">Peddy</span>
         </div>
-        <div class="md:leading-8 leading-7 md:text-base text-sm text-gray-300 cursor-pointer text-center md:text-left mb-6">
+        <div class="md:leading-8 leading-7 md:text-base text-sm text-gray-300 cursor-pointer text-center md:text-left mb-4">
             Location: av. Washington 165, <br>NY CA 54003 <br>Phone: +31 85 964 47 25 <br>Email:
             info@yourdomain.com <br>Openings hours: 9.00 AM - 5.00 PM
+        </div>
+        <div class="flex gap-4 items-center md:justify-start justify-center mb-6 md:mt-6">
+            <img class="w-6 cursor-pointer" src="images/facebook.png" alt="facebook-img">
+            <img class="h-5 cursor-pointer" src="images/twitter.png" alt="twitter-img">
+            <img class="w-6 cursor-pointer" src="images/youtube.png" alt="youtube-img">
+            <img class="w-6 cursor-pointer" src="images/instagram.png" alt="instagram-img">
         </div>
       </div>
 
