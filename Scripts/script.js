@@ -70,6 +70,8 @@ displayCategories()
 
 
 /*------- active category -------*/
+let categorized = false
+
 const activeCat = async (event, newCat) => {
     // console.log(newCat.id)
 
@@ -82,7 +84,8 @@ const activeCat = async (event, newCat) => {
     newCat.classList.add('active')
     
     await fetchPet(catDictionary[`${newCat.id}`])
-    displayPets(true)
+    categorized = true
+    displayPets(categorized)
 }
   
 
@@ -112,12 +115,27 @@ const fetchPet = async (catName) => {
     }
 }
   
-async function displayPets(categorized){
-    if(!categorized) await fetchPets()
+
+
+async function displayPets(fetchAll){
+    
+    if(!fetchAll) await fetchPets()
     
     const petParent = document.getElementById('pets')
     petParent.innerHTML = ''
 
+    const noPets = document.getElementById('no-pets')
+    if(petList.length === 0)
+    {
+        petParent.classList.remove('grid')
+        petParent.classList.add('hidden')
+        noPets.classList.remove('hidden')
+    } else{
+        petParent.classList.remove('hidden')
+        petParent.classList.add('grid')
+        noPets.classList.add('hidden')
+    }
+    
     petList.forEach(pet => {
         const newPet = document.createElement('div')
         newPet.innerHTML = 
@@ -166,9 +184,7 @@ async function displayPets(categorized){
     })
 }
 
-displayPets(false)
-
-
+displayPets(categorized)
 
 /*------- like pets -------*/
 function likefunc(pet){
@@ -196,3 +212,19 @@ function likefunc(pet){
         }
 })
 }
+
+
+/*------- sort function -------*/
+const sortBtn = document.getElementById('sort-btn')
+sortBtn.addEventListener('click', async() => {
+    petList.sort((a, b) => b.price - a.price)
+    
+    if(categorized){
+        await displayPets(categorized)
+    } else{
+        await displayPets(!categorized) // don't fetch again
+    }
+    
+    
+})
+
