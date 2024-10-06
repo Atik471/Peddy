@@ -13,11 +13,15 @@ document.addEventListener('click', (event) => {
     }
 })
 
+
+
 /*------- APIs -------*/
 const categoriesURL = `https://openapi.programming-hero.com/api/peddy/categories` // all categories
 const categoryURL = `https://openapi.programming-hero.com/api/peddy/category/` // single category by name
 const petsURL = `https://openapi.programming-hero.com/api/peddy/pets` // all pets
 const petURL = `https://openapi.programming-hero.com/api/peddy/pet/` // single pet by id
+
+
 
 /*------- fetch categories -------*/
 let categoryList = []
@@ -63,6 +67,8 @@ async function displayCategories(){
 
 displayCategories()
 
+
+
 /*------- active category -------*/
 const activeCat = async (event, newCat) => {
     // console.log(newCat.id)
@@ -79,6 +85,7 @@ const activeCat = async (event, newCat) => {
     displayPets(true)
 }
   
+
 
 /*------- fetch all pets -------*/
 let petList = []
@@ -121,7 +128,7 @@ async function displayPets(categorized){
             <div class='font-lato pb-4 border-b-2 border-slate-200'>
                 <h3 class='name font-inter text-lg font-semibold md:mb-3 mb-2'>${pet.pet_name}</h3>
                 <div class='flex gap-2 items-center mb-2'>
-                    <img src='images/breed.png' alt='breed-png' class='w-5 '>
+                    <img src='images/breed.png' alt='breed-png' class='w-5'  id='${pet.pet_name}-img'>
                     <p class='breed text-base text-custom-gray'>${pet.breed}</p>
                 </div>
                 <div class='flex gap-2 items-center mb-2'>
@@ -138,7 +145,7 @@ async function displayPets(categorized){
                 </div>
             </div>
             <div class='pt-4 flex items-stretch justify-between'>
-                <button class='border-2 border-slate-200 hover:border-slate-300 transition duration-300 rounded-lg py-1 px-4'>
+                <button class='transition duration-300 rounded-lg py-1 px-4 unliked-btn' id='${pet.pet_name}-btn'>
                     <img src='images/like.png' alt='like-img' class='w-4'>
                 </button>
                 <button class='border-2 border-slate-200 hover:border-slate-300 transition duration-300 rounded-lg py-1 px-3 font-semibold text-primary font-lato'>
@@ -149,12 +156,43 @@ async function displayPets(categorized){
                 </button>
             </div>
         `
+
         newPet.classList.add('p-4', 'border-2', 'border-slate-200', 'rounded-lg')
         newPet.setAttribute('id', `pet-${pet.petId}`)
-    
         petParent.appendChild(newPet)
+
+        likefunc(pet)
 
     })
 }
 
 displayPets(false)
+
+
+
+/*------- like pets -------*/
+function likefunc(pet){
+    let likeBtn = document.getElementById(`${pet.pet_name}-btn`)
+    const likedPets = document.getElementById('liked-pets')
+    likedPets.innerHTML = ''
+
+    likeBtn.addEventListener('click', () => {
+        if(likeBtn.classList.contains('unliked-btn')){
+            likeBtn.classList.remove('unliked-btn')
+            likeBtn.classList.add('liked-btn')
+
+            let likedPet = document.createElement('img')
+            likedPet.setAttribute('src', `${pet.image}`)
+            likedPet.setAttribute('alt', `${pet.pet_name}-img`)
+            likedPet.classList.add('rounded-md')
+            likedPet.setAttribute('id', `${pet.pet_name}-img-liked`)
+            likedPets.appendChild(likedPet)
+        } else{
+            likeBtn.classList.remove('liked-btn')
+            likeBtn.classList.add('unliked-btn')
+
+            const childImg = document.getElementById(`${pet.pet_name}-img-liked`)
+            likedPets.removeChild(childImg)
+        }
+})
+}

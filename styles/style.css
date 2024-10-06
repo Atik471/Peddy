@@ -3,7 +3,7 @@
     border-width: 2px;
     border-style: solid;
     border-radius: 3.3rem;
-    background-color: rgba(14, 122, 129, 0.1);;
+    background-color: rgba(14, 122, 129, 0.1);
 }
 
 .inactive{
@@ -15,5 +15,20 @@
     background-color: white;
 }
 .inactive:hover{
+    border-color: #cbd5e1;
+}
+
+.liked-btn{
+    background-color: rgba(14, 122, 129, 0.1);
+    border-color: rgb(14, 122, 129);
+    border-width: 2px;
+    border-style: solid;
+}
+.unliked-btn{
+    border-width: 2px;
+    border-style: solid;
+    border-color: #e2e8f0;
+}
+.unliked-btn:hover{
     border-color: #cbd5e1;
 }
