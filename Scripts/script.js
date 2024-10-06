@@ -169,7 +169,7 @@ async function displayPets(fetchAll){
                 <button class='border-2 border-slate-200 hover:border-slate-300 transition duration-300 rounded-lg py-1 px-3 font-semibold text-primary font-lato'>
                     Adopt
                 </button>
-                <button class='border-2 border-slate-200 hover:border-slate-300 transition duration-300 rounded-lg py-1 px-3 font-semibold text-primary font-lato'>
+                <button class='border-2 border-slate-200 hover:border-slate-300 transition duration-300 rounded-lg py-1 px-3 font-semibold text-primary font-lato' id='${pet.pet_name}-details'>
                     Details
                 </button>
             </div>
@@ -180,6 +180,7 @@ async function displayPets(fetchAll){
         petParent.appendChild(newPet)
 
         likefunc(pet)
+        viewDetails(pet)
 
     })
 }
@@ -224,7 +225,57 @@ sortBtn.addEventListener('click', async() => {
     } else{
         await displayPets(!categorized) // don't fetch again
     }
-    
-    
 })
 
+
+
+/*------- fetch details -------*/
+const fetchDetails = async (pet) => {
+    try {
+      const response = await fetch(`${petURL}${pet.petId}`)
+      const data = await response.json();
+      const petDetails = data.petData
+      return petDetails
+    } catch (error) {
+      console.error('There was some issue while loading categories:', error)
+    }
+}
+
+
+
+/*------- view details function -------*/
+const petModal = document.getElementById('pet-modal')
+const detailCancel = document.getElementById('detail-cancel')
+
+detailCancel.addEventListener('click', () => {
+    petModal.classList.remove('flex')
+    petModal.classList.add('hidden')
+})
+
+function viewDetails(pet){    
+    const petDetailBtn = document.getElementById(`${pet.pet_name}-details`)
+    const detailImg = document.getElementById('detail-img')
+    const detailName = document.getElementById('detail-name')
+    const detailBreed = document.getElementById('detail-breed')
+    const detailBirth = document.getElementById('detail-dob')
+    const detailGender = document.getElementById('detail-gender')
+    const detailPrice = document.getElementById('detail-price')
+    const detailVaccine = document.getElementById('detail-vaccine')
+    const detailInfo = document.getElementById('detail-info')
+
+    petDetailBtn.addEventListener('click', async() => {
+        const petDetails =  await fetchDetails(pet)
+
+        detailImg.setAttribute('src', `${petDetails.image}`)
+        detailName.innerText = petDetails.pet_name
+        detailBreed.innerText = petDetails.breed
+        detailBirth.innerText = petDetails.date_of_birth
+        detailGender.innerText = petDetails.gender
+        detailPrice.innerText= petDetails.price
+        detailVaccine.innerText = petDetails.vaccinated_status
+        detailInfo.innerText = petDetails.pet_details
+
+        petModal.classList.remove('hidden')
+        petModal.classList.add('flex')
+    })
+}

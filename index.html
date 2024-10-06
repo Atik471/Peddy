@@ -12,6 +12,7 @@
           extend: {
             colors: {
               primary: "rgb(14, 122, 129)",
+              "primary-light": "rgba(14, 122, 129, 0.1)",
               "custom-gray": "#131313",
             },
           },
@@ -36,7 +37,7 @@
     </style>
 
     <!-- css -->
-    <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/style.css" />
 
     <title>Peddy</title>
   </head>
@@ -83,9 +84,10 @@
             </li>
           </ul>
         </div>
-        <div class="md:w-10 md:h-10 w-10 h-10 order-2 cursor-pointer rounded-full border-2 border-white hover:border-primary transition duration-300">
+        <div
+          class="md:w-10 md:h-10 w-10 h-10 order-2 cursor-pointer rounded-full border-2 border-white hover:border-primary transition duration-300"
+        >
           <svg
-          
             viewBox="0 0 56 56"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
@@ -185,70 +187,168 @@
     </header>
 
     <main id="main" class="lg:px-[9%] md:px-[5%] px-[4%] mb-[4rem]">
-        <div class="text-center md:my-8 my-6 md:max-w-[60%] mx-auto font-lato">
-            <h2 class="md:text-[2.5rem] text-[2rem] md:leading-[3rem] leading-[2.5rem] font-extrabold mb-4">Adopt Your Best Friend</h2>
-            <p class="text-custom-gray">Looking for a furry friend to fill your days with love and laughter? Explore our adoptable animals and discover the joy of giving a loving home.</p>
-        </div>
-        <div id="catagories" class="flex flex-wrap md:gap-8 gap-3 lg:justify-center md:mb-8 mb-5"></div>
-        <div class="flex justify-between items-center md:mb-8 mb-6">
-            <h2 class="font-bold md:text-xl text-base ">Best Deal For You</h2>
-            <button class="bg-primary rounded-md md:px-6 px-4 md:py-3 py-2 md:text-lg text-base font-semibold text-white transition duration-300" id="sort-btn">Sort by price</button>
-        </div>
+      <div class="text-center md:my-8 my-6 md:max-w-[60%] mx-auto font-lato">
+        <h2
+          class="md:text-[2.5rem] text-[2rem] md:leading-[3rem] leading-[2.5rem] font-extrabold mb-4"
+        >
+          Adopt Your Best Friend
+        </h2>
+        <p class="text-custom-gray">
+          Looking for a furry friend to fill your days with love and laughter?
+          Explore our adoptable animals and discover the joy of giving a loving
+          home.
+        </p>
+      </div>
+      <div
+        id="catagories"
+        class="flex flex-wrap md:gap-8 gap-3 lg:justify-center md:mb-8 mb-5"
+      ></div>
+      <div class="flex justify-between items-center md:mb-8 mb-6">
+        <h2 class="font-bold md:text-xl text-base">Best Deal For You</h2>
+        <button
+          class="bg-primary rounded-md md:px-6 px-4 md:py-3 py-2 md:text-lg text-base font-semibold text-white transition duration-300"
+          id="sort-btn"
+        >
+          Sort by price
+        </button>
+      </div>
 
-        <div class="grid md:grid-cols-4 grid-cols-2 md:gap-8 gap-4 md:mb-8 mb-6">
-            <div class="text-center md:my-8 my-8 md:max-w-[60%] mx-auto font-lato hidden md:col-span-3 col-span-2" id="no-pets">
-                <img src="images/error.webp" alt="error-img" class="md:w-[9rem] w-[6rem] mx-auto mb-6">
-                <h2 class="md:text-[2rem] text-[1.5rem] md:leading-[2.5rem] leading-[2rem] font-extrabold mb-4">No Information Available</h2>
-                <p class="text-custom-gray">It looks like there is no pets available in this section</p>
-            </div>
-            <div class="md:col-span-3 col-span-2 grid md:grid-cols-3 grid-cols-1 gap-4" id="pets"></div>
-            <div class="md:col-span-1 col-span-2 border-2 rounded-lg border-slate-200 p-4">
-                <h2 class="font-bold md:text-lg text-base ">Liked pets</h2>
-                <div id="liked-pets" class="grid grid-cols-2 gap-3 pt-4"></div>
-            </div>
-            
+      <div class="grid md:grid-cols-4 grid-cols-2 md:gap-8 gap-4 md:mb-8 mb-6">
+        <div
+          class="text-center md:my-8 my-8 md:max-w-[60%] mx-auto font-lato hidden md:col-span-3 col-span-2"
+          id="no-pets"
+        >
+          <img
+            src="images/error.webp"
+            alt="error-img"
+            class="md:w-[9rem] w-[6rem] mx-auto mb-6"
+          />
+          <h2
+            class="md:text-[2rem] text-[1.5rem] md:leading-[2.5rem] leading-[2rem] font-extrabold mb-4"
+          >
+            No Information Available
+          </h2>
+          <p class="text-custom-gray">
+            It looks like there is no pets available in this section
+          </p>
         </div>
+        <div
+          class="md:col-span-3 col-span-2 grid md:grid-cols-3 grid-cols-1 gap-4"
+          id="pets"
+        ></div>
+        <div
+          class="md:col-span-1 col-span-2 border-2 rounded-lg border-slate-200 p-4"
+        >
+          <h2 class="font-bold md:text-lg text-base">Liked pets</h2>
+          <div id="liked-pets" class="grid grid-cols-2 gap-3 pt-4"></div>
+        </div>
+      </div>
     </main>
+
+    <section id="pet-modal" class="fixed left-0 right-0 top-0 bg-black/50 w-full h-full hidden justify-center items-center">
+      <div class="md:w-[40%] w-[90%] max-h-[80%] overflow-y-scroll bg-white md:p-6 p-5 rounded-2xl">
+        <img src="images/error.webp" alt="pet-img" id="detail-img" class="rounded-lg mb-6"/>
+        <div class="mb-5">
+          <h2 id="detail-name" class="text-xl font-bold mb-4 font-inter"></h2>
+          <div class="font-lato">
+            <div class="flex mb-2 gap-2 items-center">
+              <img src="images/breed.png" alt="breed-img" class="w-5"/>
+              <p class="text-base">Breed: <span id="detail-breed"></span></p>
+            </div>
+            <div class="flex mb-2 gap-2 items-center">
+              <img src="images/dob.png" alt="dob-img"  class="w-5"/>
+              <p class="text-base">Birth: <span id="detail-dob"></span></p>
+            </div>
+            <div class="flex mb-2 gap-2 items-center">
+              <img src="images/gender.png" alt="gender-img"  class="w-5"/>
+              <p class="text-base">Gender: <span id="detail-gender"></span></p>
+            </div>
+            <div class="flex mb-2 gap-2 items-center">
+              <img src="images/price.png" alt="price-img"  class="w-5"/>
+              <p class="text-base">Price: <span id="detail-price"></span></p>
+            </div>
+            <div class="flex mb-2 gap-2 items-center">
+              <img src="images/gender.png" alt="gender-img"  class="w-5"/>
+              <p class="text-base">Vaccinated Status: <span id="detail-vaccine"></span></p>
+            </div>
+          </div>
+        </div>
+        <div class="mb-5">
+          <h3 class="text-lg font-bold mb-3 font-inter">Details Information</h3>
+          <p id="detail-info"></p>
+        </div>
+        <button id="detail-cancel" class="w-full bg-primary-light rounded-md text-center py-2 text-primary border-2 border-primary text-lg font-bold transition duration-300 hover:-translate-y-1">Cancel</button>
+      </div>
+    </section>
 
     <footer
       id="contact"
-      class="bg-black lg:py-[5rem] py-[1.5rem] lg:px-[9%] md:px-[5%] px-[10%] text-white
-      flex md:flex-row flex-col justify-between"
+      class="bg-black lg:py-[5rem] py-[1.5rem] lg:px-[9%] md:px-[5%] px-[10%] text-white flex md:flex-row flex-col justify-between"
     >
       <div>
-        <div class="flex gap-3 items-center md:mb-6 mb-4 md:justify-start justify-center mx-auto">
-            <img src="images/logo.webp" alt="logo" class="w-6 h-5" />
-            <span class="font-extrabold text-2xl ">Peddy</span>
+        <div
+          class="flex gap-3 items-center md:mb-6 mb-4 md:justify-start justify-center mx-auto"
+        >
+          <img src="images/logo.webp" alt="logo" class="w-6 h-5" />
+          <span class="font-extrabold text-2xl">Peddy</span>
         </div>
-        <div class="md:leading-8 leading-7 md:text-base text-sm text-gray-300 cursor-pointer text-center md:text-left mb-4">
-            Location: av. Washington 165, <br>NY CA 54003 <br>Phone: +31 85 964 47 25 <br>Email:
-            info@yourdomain.com <br>Openings hours: 9.00 AM - 5.00 PM
+        <div
+          class="md:leading-8 leading-7 md:text-base text-sm text-gray-300 cursor-pointer text-center md:text-left mb-4"
+        >
+          Location: av. Washington 165, <br />NY CA 54003 <br />Phone: +31 85
+          964 47 25 <br />Email: info@yourdomain.com <br />Openings hours: 9.00
+          AM - 5.00 PM
         </div>
-        <div class="flex gap-4 items-center md:justify-start justify-center mb-6 md:mt-6">
-            <img class="w-6 cursor-pointer" src="images/facebook.png" alt="facebook-img">
-            <img class="h-5 cursor-pointer" src="images/twitter.png" alt="twitter-img">
-            <img class="w-6 cursor-pointer" src="images/youtube.png" alt="youtube-img">
-            <img class="w-6 cursor-pointer" src="images/instagram.png" alt="instagram-img">
+        <div
+          class="flex gap-4 items-center md:justify-start justify-center mb-6 md:mt-6"
+        >
+          <img
+            class="w-6 cursor-pointer"
+            src="images/facebook.png"
+            alt="facebook-img"
+          />
+          <img
+            class="h-5 cursor-pointer"
+            src="images/twitter.png"
+            alt="twitter-img"
+          />
+          <img
+            class="w-6 cursor-pointer"
+            src="images/youtube.png"
+            alt="youtube-img"
+          />
+          <img
+            class="w-6 cursor-pointer"
+            src="images/instagram.png"
+            alt="instagram-img"
+          />
         </div>
       </div>
 
       <div class="md:text-left text-center mb-5">
         <h3 class="font-semibold text-lg md:mb-6 mb-3">Useful Links</h3>
         <ul class="text-gray-400 text-sm">
-            <li class="md:mb-2 mb-1"><a href="#">Home</a></li>
-            <li class="md:mb-2 mb-1"><a href="#">About us</a></li>
-            <li class="md:mb-2 mb-1"><a href="#">Animals</a></li>
-            <li class="md:mb-2 mb-1"><a href="#">Foundation</a></li>
-            <li class="md:mb-2 mb-1"><a href="#">Contact</a></li>
+          <li class="md:mb-2 mb-1"><a href="#">Home</a></li>
+          <li class="md:mb-2 mb-1"><a href="#">About us</a></li>
+          <li class="md:mb-2 mb-1"><a href="#">Animals</a></li>
+          <li class="md:mb-2 mb-1"><a href="#">Foundation</a></li>
+          <li class="md:mb-2 mb-1"><a href="#">Contact</a></li>
         </ul>
       </div>
 
-      <div class=" md:text-left text-center">
+      <div class="md:text-left text-center">
         <h3 class="font-semibold text-lg md:mb-6 mb-6">Drop a Message</h3>
         <form class="flex flex-col gap-4">
-            <input type="text" placeholder="Enter your Email" class="md:p-4 p-3 bg-gray-950 rounded-md">
-            <input type="submit" value="Subscribe"
-            class="bg-primary rounded-md px-8 md:py-4 py-3 text-lg font-bold text-white transition duration-300 hover:-translate-y-1">
+          <input
+            type="text"
+            placeholder="Enter your Email"
+            class="md:p-4 p-3 bg-gray-950 rounded-md"
+          />
+          <input
+            type="submit"
+            value="Subscribe"
+            class="bg-primary rounded-md px-8 md:py-4 py-3 text-lg font-bold text-white transition duration-300 hover:-translate-y-1"
+          />
         </form>
       </div>
     </footer>
