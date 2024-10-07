@@ -82,6 +82,8 @@ const activeCat = async (event, newCat) => {
     
     newCat.classList.remove('inactive')
     newCat.classList.add('active')
+
+    await spinner()
     
     await fetchPet(catDictionary[`${newCat.id}`])
     categorized = true
@@ -166,7 +168,7 @@ async function displayPets(fetchAll){
                 <button class='transition duration-300 rounded-lg py-1 px-4 unliked-btn' id='${pet.pet_name}-btn'>
                     <img src='images/like.png' alt='like-img' class='w-4'>
                 </button>
-                <button class='border-2 border-slate-200 hover:border-slate-300 transition duration-300 rounded-lg py-1 px-3 font-semibold text-primary font-lato'>
+                <button class='border-2 border-slate-200 hover:border-slate-300 transition duration-300 rounded-lg py-1 px-3 font-semibold text-primary font-lato' id='${pet.pet_name}-adopt'>
                     Adopt
                 </button>
                 <button class='border-2 border-slate-200 hover:border-slate-300 transition duration-300 rounded-lg py-1 px-3 font-semibold text-primary font-lato' id='${pet.pet_name}-details'>
@@ -181,11 +183,19 @@ async function displayPets(fetchAll){
 
         likefunc(pet)
         viewDetails(pet)
+        adoptfunc(pet)
 
     })
 }
 
-displayPets(categorized)
+const spinnerAnimation = document.getElementById('spinner')
+const petSection = document.getElementById('pets')
+const load = async() => {
+    await spinner()
+    displayPets(categorized)
+}
+load()
+
 
 /*------- like pets -------*/
 function likefunc(pet){
@@ -279,3 +289,71 @@ function viewDetails(pet){
         petModal.classList.add('flex')
     })
 }
+
+
+
+/*------- spinner function -------*/
+
+async function spinner(){
+    spinnerAnimation.classList.remove('hidden')
+    spinnerAnimation.classList.add('flex')
+    petSection.classList.remove('grid')
+    petSection.classList.add('hidden')
+
+    await new Promise(resolve => setTimeout(resolve, 3000))
+
+    spinnerAnimation.classList.remove('flex')
+    spinnerAnimation.classList.add('hidden')
+    petSection.classList.remove('hidden')
+    petSection.classList.add('grid')
+}
+
+
+
+/*------- adopt modal -------*/
+function adoptfunc(pet){
+    const adoptBtn = document.getElementById(`${pet.pet_name}-adopt`)
+    const adoptTimer = document.getElementById('adopt-timer');
+    const adoptModal = document.getElementById('adopt-modal')
+
+    adoptBtn.addEventListener('click', () => {
+        
+        let counter = 2;
+        adoptModal.classList.remove('hidden')
+        adoptModal.classList.add('flex')
+        const countdown = setInterval(() => {
+            adoptTimer.innerText = counter;
+            counter--
+            if (counter < 0) {
+                clearTimeout(countdown);  
+                adoptModal.classList.remove('flex')
+                adoptModal.classList.add('hidden')
+                adoptTimer.innerText = 3;
+                adoptBtn.innerText = 'Adopted'
+                adoptBtn.disabled = true
+                adoptBtn.classList.remove('text-primary')
+                adoptBtn.classList.add('bg-gray-200', 'text-gray-500')
+            }
+        }, 1000);
+
+    })
+
+    
+}
+
+
+/*
+
+navbar make icons a little bigger for tab
+justify categories left
+add title on pet name boxes
+fix like btn
+make detail-modal t grid
+give a min height to pet list
+add no liked pets
+make image height fixed, or fix image to a postion for detail-modal and pet list
+handle undefined and null
+readme file
+deploy and recheck github
+
+*/

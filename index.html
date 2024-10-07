@@ -68,7 +68,7 @@
           </li>
         </ul>
         <div class="md:hidden cursor-pointer">
-          <img src="images/hamburger.png" alt="hamburger" id="hamburger" />
+          <img src="images/hamburger.png" alt="hamburger" id="hamburger"/>
           <ul
             class="text-custom-gray font-normal text-base gap-8 absolute w-[70%] text-center p-5 bg-gray-200 rounded-lg hidden shadow-xl"
             id="mobile-menu"
@@ -232,6 +232,13 @@
             It looks like there is no pets available in this section
           </p>
         </div>
+        <div class="justify-center items-center hidden md:col-span-3 col-span-2" id="spinner">
+          <ul class="flex gap-2 h-[8rem] justify-center items-center">
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
+        </div>
         <div
           class="md:col-span-3 col-span-2 grid md:grid-cols-3 grid-cols-1 gap-4"
           id="pets"
@@ -280,6 +287,15 @@
         <button id="detail-cancel" class="w-full bg-primary-light rounded-md text-center py-2 text-primary border-2 border-primary text-lg font-bold transition duration-300 hover:-translate-y-1">Cancel</button>
       </div>
     </section>
+
+    <section id="adopt-modal" class="fixed left-0 right-0 top-0 bg-black/50 w-full h-full hidden justify-center items-center">
+        <div class="md:w-[30%] w-[80%] bg-white md:p-6 p-5 rounded-xl text-center font-inter">
+          <img src="images/firework.png" alt="adopt-img" class="md:w-16 w-14 m-auto mb-6">
+          <h2 class="font-semibold md:text-lg text-base text-custom-gray mb-2">Adoption process has started for your pet</h2>
+          <p id="adopt-timer" class="md:text-[5rem] text-[4rem] md:leading-[5.5rem] leading-[5rem] font-extrabold text-custom-gray">3</p>
+          
+        </div>
+      </section>
 
     <footer
       id="contact"
