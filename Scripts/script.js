@@ -83,10 +83,14 @@ const activeCat = async (event, newCat) => {
     newCat.classList.remove('inactive')
     newCat.classList.add('active')
 
-    await spinner()
+    const petParent = document.getElementById('pets')
+    petParent.innerHTML = ''
+    noPetSection.classList.remove('block')
+    noPetSection.classList.add('hidden')
     
     await fetchPet(catDictionary[`${newCat.id}`])
     categorized = true
+    
     displayPets(categorized)
 }
   
@@ -94,13 +98,20 @@ const activeCat = async (event, newCat) => {
 
 /*------- fetch all pets -------*/
 let petList = []
+const spinnerAnimation = document.getElementById('spinner')
+const petSection = document.getElementById('pets')
+const noPetSection = document.getElementById('no-pets')
 
 const fetchPets = async () => {
+    await spinner()
     try {
       const response = await fetch(petsURL)
       const data = await response.json();
       petList = data.pets
-    //   console.log(petList)
+      if(petList.length !== 0){
+        noPetSection.classList.remove('block')
+        noPetSection.classList.add('hidden')
+      }
     } catch (error) {
       console.error('There was some issue while loading categories:', error)
     }
@@ -108,10 +119,15 @@ const fetchPets = async () => {
 
 /*------- fetch pet by category -------*/
 const fetchPet = async (catName) => {
+    await spinner()
     try {
       const response = await fetch(`${categoryURL}${catName}`)
       const petsOnCat = await response.json();
       petList = petsOnCat.data
+      if(petList.length !== 0){
+        noPetSection.classList.remove('block')
+        noPetSection.classList.add('hidden')
+        }
     } catch (error) {
       console.error('There was some issue while loading categories:', error)
     }
@@ -133,13 +149,21 @@ async function displayPets(fetchAll){
         petParent.classList.add('hidden')
         noPets.classList.remove('hidden')
     } else{
+        noPets.classList.add('hidden')
         petParent.classList.remove('hidden')
         petParent.classList.add('grid')
-        noPets.classList.add('hidden')
     }
     
     petList.forEach(pet => {
         const newPet = document.createElement('div')
+
+        if(pet.pet_name == null) pet.pet_name = 'N/A'
+        if(pet.breed == null) pet.breed = 'N/A'
+        if(pet.date_of_birth == null) pet.date_of_birth = 'N/A'
+        if(pet.gender == null) pet.gender = 'N/A'
+        if(pet.price == null) pet.price = 'N/A'
+
+
         newPet.innerHTML = 
         `
             <div class='md:mb-5 mb-3'>
@@ -149,22 +173,22 @@ async function displayPets(fetchAll){
                 <h3 class='name font-inter text-lg font-semibold md:mb-3 mb-2'>${pet.pet_name}</h3>
                 <div class='flex gap-2 items-center mb-2'>
                     <img src='images/breed.png' alt='breed-png' class='w-5'  id='${pet.pet_name}-img'>
-                    <p class='breed text-base text-custom-gray'>${pet.breed}</p>
+                    <p class='breed text-base text-custom-gray'>Breed: ${pet.breed}</p>
                 </div>
                 <div class='flex gap-2 items-center mb-2'>
                     <img src='images/dob.png' alt='dob-png' class='w-5 '>
-                    <p class='dob text-base text-custom-gray'>${pet.date_of_birth}</p>
+                    <p class='dob text-base text-custom-gray'>Birth: ${pet.date_of_birth.slice(0,4)}</p>
                 </div>
                 <div class='flex gap-2 items-center mb-2'>
                     <img src='images/gender.png' alt='gender-png' class='w-5 '>
-                    <p class='gender text-base text-custom-gray'>${pet.gender}</p>
+                    <p class='gender text-base text-custom-gray'>Gender: ${pet.gender}</p>
                 </div>
                 <div class='flex gap-2 items-center mb-2'>
                     <img src='images/price.png' alt='price-png' class='w-5 '>
-                    <p class='price text-base text-custom-gray'>${pet.price}</p>
+                    <p class='price text-base text-custom-gray'>Price: ${pet.price}</p>
                 </div>
             </div>
-            <div class='pt-4 flex items-stretch justify-between'>
+            <div class='pt-4 flex items-stretch flex-wrap md:gap-2 gap-4'>
                 <button class='transition duration-300 rounded-lg py-1 px-4 unliked-btn' id='${pet.pet_name}-btn'>
                     <img src='images/like.png' alt='like-img' class='w-4'>
                 </button>
@@ -188,20 +212,16 @@ async function displayPets(fetchAll){
     })
 }
 
-const spinnerAnimation = document.getElementById('spinner')
-const petSection = document.getElementById('pets')
-const load = async() => {
-    await spinner()
-    displayPets(categorized)
-}
-load()
+displayPets(categorized)
+
 
 
 /*------- like pets -------*/
 function likefunc(pet){
     let likeBtn = document.getElementById(`${pet.pet_name}-btn`)
     const likedPets = document.getElementById('liked-pets')
-    likedPets.innerHTML = ''
+    const noLiked = document.getElementById('no-liked')
+    
 
     likeBtn.addEventListener('click', () => {
         if(likeBtn.classList.contains('unliked-btn')){
@@ -221,7 +241,12 @@ function likefunc(pet){
             const childImg = document.getElementById(`${pet.pet_name}-img-liked`)
             likedPets.removeChild(childImg)
         }
-})
+        if(likedPets.children.length === 1){
+            noLiked.classList.remove('hidden')
+        } else{
+            noLiked.classList.add('hidden')
+        }
+    })
 }
 
 
@@ -273,13 +298,23 @@ function viewDetails(pet){
     const detailVaccine = document.getElementById('detail-vaccine')
     const detailInfo = document.getElementById('detail-info')
 
+    
+
     petDetailBtn.addEventListener('click', async() => {
         const petDetails =  await fetchDetails(pet)
+
+        if(petDetails.pet_name == null) petDetails.pet_name = 'N/A'
+        if(petDetails.breed == null) petDetails.breed = 'N/A'
+        if(petDetails.date_of_birth == null) petDetails.date_of_birth = 'N/A'
+        if(petDetails.gender == null) petDetails.gender = 'N/A'
+        if(petDetails.price == null) petDetails.price = 'N/A'
+        if(petDetails.vaccinated_status == null) petDetails.vaccinated_status = 'N/A'
+        if(petDetails.pet_details == null) petDetails.pet_details = 'N/A'
 
         detailImg.setAttribute('src', `${petDetails.image}`)
         detailName.innerText = petDetails.pet_name
         detailBreed.innerText = petDetails.breed
-        detailBirth.innerText = petDetails.date_of_birth
+        detailBirth.innerText = petDetails.date_of_birth.slice(0,4)
         detailGender.innerText = petDetails.gender
         detailPrice.innerText= petDetails.price
         detailVaccine.innerText = petDetails.vaccinated_status
@@ -295,17 +330,25 @@ function viewDetails(pet){
 /*------- spinner function -------*/
 
 async function spinner(){
-    spinnerAnimation.classList.remove('hidden')
-    spinnerAnimation.classList.add('flex')
     petSection.classList.remove('grid')
     petSection.classList.add('hidden')
+    noPetSection.classList.remove('block')
+    noPetSection.classList.add('hidden')
+    spinnerAnimation.classList.remove('hidden')
+    spinnerAnimation.classList.add('flex')
+    
 
     await new Promise(resolve => setTimeout(resolve, 3000))
 
-    spinnerAnimation.classList.remove('flex')
-    spinnerAnimation.classList.add('hidden')
+    
+    if(petList.length === 0){
+        noPetSection.classList.remove('hidden')
+        noPetSection.classList.add('block')
+    }
     petSection.classList.remove('hidden')
     petSection.classList.add('grid')
+    spinnerAnimation.classList.remove('flex')
+    spinnerAnimation.classList.add('hidden')
 }
 
 
@@ -337,23 +380,15 @@ function adoptfunc(pet){
         }, 1000);
 
     })
-
-    
 }
 
 
 /*
 
-navbar make icons a little bigger for tab
-justify categories left
-add title on pet name boxes
-fix like btn
-make detail-modal t grid
-give a min height to pet list
-add no liked pets
-make image height fixed, or fix image to a postion for detail-modal and pet list
-handle undefined and null
+
 readme file
 deploy and recheck github
+
+change category fast and see the bug
 
 */
