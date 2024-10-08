@@ -20,5 +20,5 @@ Peddy is frontend project using HTML, CSS, JavaScript, Tailwind CSS and JSON API
 - template strings
 
 
-## Live Link
-<a href="peddy-assignment.surge.sh" style="font-size: 2rem;">peddy-assignment.surge.sh</a>
+# Live Link
+## <a href="https://peddy-assignment.surge.sh">peddy-assignment.surge.sh</a>
