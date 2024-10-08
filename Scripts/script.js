@@ -103,15 +103,10 @@ const petSection = document.getElementById('pets')
 const noPetSection = document.getElementById('no-pets')
 
 const fetchPets = async () => {
-    await spinner()
     try {
       const response = await fetch(petsURL)
       const data = await response.json();
       petList = data.pets
-      if(petList.length !== 0){
-        noPetSection.classList.remove('block')
-        noPetSection.classList.add('hidden')
-      }
     } catch (error) {
       console.error('There was some issue while loading categories:', error)
     }
@@ -119,15 +114,10 @@ const fetchPets = async () => {
 
 /*------- fetch pet by category -------*/
 const fetchPet = async (catName) => {
-    await spinner()
     try {
       const response = await fetch(`${categoryURL}${catName}`)
       const petsOnCat = await response.json();
       petList = petsOnCat.data
-      if(petList.length !== 0){
-        noPetSection.classList.remove('block')
-        noPetSection.classList.add('hidden')
-        }
     } catch (error) {
       console.error('There was some issue while loading categories:', error)
     }
@@ -139,6 +129,8 @@ async function displayPets(fetchAll){
     
     if(!fetchAll) await fetchPets()
     
+    await spinner()
+
     const petParent = document.getElementById('pets')
     petParent.innerHTML = ''
 
@@ -148,7 +140,9 @@ async function displayPets(fetchAll){
         petParent.classList.remove('grid')
         petParent.classList.add('hidden')
         noPets.classList.remove('hidden')
+        noPets.classList.add('grid')
     } else{
+        noPets.classList.remove('grid')
         noPets.classList.add('hidden')
         petParent.classList.remove('hidden')
         petParent.classList.add('grid')
@@ -330,20 +324,21 @@ function viewDetails(pet){
 /*------- spinner function -------*/
 
 async function spinner(){
-    petSection.classList.remove('grid')
-    petSection.classList.add('hidden')
-    noPetSection.classList.remove('block')
-    noPetSection.classList.add('hidden')
     spinnerAnimation.classList.remove('hidden')
     spinnerAnimation.classList.add('flex')
+    petSection.classList.remove('grid')
+    petSection.classList.add('hidden')
+    noPetSection.classList.remove('grid')
+    noPetSection.classList.add('hidden')
+    
     
 
-    await new Promise(resolve => setTimeout(resolve, 3000))
+    await new Promise(resolve => setTimeout(resolve, 2500))
 
     
     if(petList.length === 0){
         noPetSection.classList.remove('hidden')
-        noPetSection.classList.add('block')
+        noPetSection.classList.add('grid')
     }
     petSection.classList.remove('hidden')
     petSection.classList.add('grid')
