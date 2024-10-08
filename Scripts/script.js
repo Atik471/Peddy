@@ -38,6 +38,7 @@ const fetchCategories = async () => {
     }
 }
   
+/*------- display categories -------*/
 async function displayCategories(){
     await fetchCategories()
     const categoryParent = document.getElementById('catagories')
@@ -73,8 +74,6 @@ displayCategories()
 let categorized = false
 
 const activeCat = async (event, newCat) => {
-    // console.log(newCat.id)
-
     for(let i = 0; i < categoryList.length; i++){
         document.getElementById(`cat-${i+1}`).classList.remove('active')
         document.getElementById(`cat-${i+1}`).classList.add('inactive')
@@ -124,7 +123,7 @@ const fetchPet = async (catName) => {
 }
   
 
-
+/*------- display pets for all pets and categorized pets -------*/
 async function displayPets(fetchAll){
     
     if(!fetchAll) await fetchPets()
@@ -244,7 +243,7 @@ function likefunc(pet){
 }
 
 
-/*------- sort function -------*/
+/*------- sort pets -------*/
 const sortBtn = document.getElementById('sort-btn')
 sortBtn.addEventListener('click', async() => {
     petList.sort((a, b) => b.price - a.price)
@@ -376,14 +375,3 @@ function adoptfunc(pet){
 
     })
 }
-
-
-/*
-
-
-readme file
-deploy and recheck github
-
-change category fast and see the bug
-
-*/
